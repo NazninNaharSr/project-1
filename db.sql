@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 18, 2020 at 04:03 PM
+-- Generation Time: Apr 16, 2020 at 10:36 PM
 -- Server version: 10.4.11-MariaDB
--- PHP Version: 7.4.2
+-- PHP Version: 7.4.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -50,6 +50,26 @@ INSERT INTO `admin` (`name`, `email`, `userName`, `password`, `gender`, `dob`, `
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `oid` bigint(100) NOT NULL,
+  `order_date` varchar(100) NOT NULL,
+  `delivery_date` varchar(100) NOT NULL,
+  `note` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`oid`, `order_date`, `delivery_date`, `note`) VALUES
+(1, '12/3/2020', '15/3/2020', 'Urgently needed');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `products`
 --
 
@@ -59,6 +79,13 @@ CREATE TABLE `products` (
   `description` varchar(100) NOT NULL,
   `pquantity` mediumint(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `products`
+--
+
+INSERT INTO `products` (`pid`, `pname`, `description`, `pquantity`) VALUES
+(1, 'Salwar Kameej', 'w-14\r\nh-45\r\n', 2);
 
 -- --------------------------------------------------------
 
@@ -84,7 +111,7 @@ CREATE TABLE `tailor` (
 
 INSERT INTO `tailor` (`ID`, `name`, `email`, `userName`, `password`, `gender`, `dob`, `picture`, `type`) VALUES
 (1, 'Daiyan', 'd@gmail.com', 'dk', '12345', 'male', '03/07/2000', ' ', ''),
-(2, 'Daiyan', 'd@gmail.com', 'dk', '12345', 'male', '03/07/2000', ' ', '');
+(2, 'Naznin', 'n@gmail.com', 'nn', '2345', 'female', '03/11/2000', 'uploads/nn1.jpg', '');
 
 -- --------------------------------------------------------
 
@@ -109,11 +136,24 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`ID`, `name`, `email`, `userName`, `password`, `gender`, `dob`, `picture`, `type`) VALUES
-(1, 'sdfs', 'n@gmail.com', 'saha', '1234', 'male', '07/09/2000', '', 'User');
+(1, 'sdfs', 'n@gmail.com', 'saha', '1234', 'male', '07/09/2000', '', 'User'),
+(2, 'Naznin', 'nahar@gmail.com', 'naz', '2345', 'female', '12/03/1998', '', 'User');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD KEY `oid` (`oid`);
+
+--
+-- Indexes for table `products`
+--
+ALTER TABLE `products`
+  ADD PRIMARY KEY (`pid`);
 
 --
 -- Indexes for table `tailor`
@@ -132,6 +172,12 @@ ALTER TABLE `user`
 --
 
 --
+-- AUTO_INCREMENT for table `products`
+--
+ALTER TABLE `products`
+  MODIFY `pid` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `tailor`
 --
 ALTER TABLE `tailor`
@@ -141,7 +187,17 @@ ALTER TABLE `tailor`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `ID` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `orders`
+--
+ALTER TABLE `orders`
+  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`oid`) REFERENCES `products` (`pid`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
